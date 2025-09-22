@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import AuthButton from './AuthButton'
+import LogInGitHub from './LogInGitHub'
 import { useRouter } from 'next/navigation'
 import { signup } from '@/actions/auth'
 
@@ -59,8 +60,9 @@ function SignUpForm() {
                    className="mt-1 w-full px-4 p-2  h-10 rounded-md border border-gray-200 bg-white text-sm text-gray-700" />
               <button type='submit'>Sign Up</button>
               <div className="mt-4">
-          <AuthButton type="Sign up" loading={loading} />
-        </div>
+            <AuthButton type='login' loading={loading}/>
+            <LogInGitHub/>
+              </div>
               {error && <p className="text-red-500">{error}</p>}
         </form>
     </div>
