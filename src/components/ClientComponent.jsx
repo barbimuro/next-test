@@ -6,6 +6,7 @@ import { createClient } from '../../utils/supabase/client'
 function ClientComponent() {
     const [user, setUser] = useState(null)
 
+   
     useEffect(()=>{
         async function getUser() {
             const supabase = createClient()
@@ -21,5 +22,7 @@ function ClientComponent() {
 
   return <h2>{user?.email}</h2>
 }
+
+ 
 
 export default ClientComponent

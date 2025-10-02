@@ -52,14 +52,14 @@ export async function signin(formData){
         } 
       
     const {data: existingUser} = supabase
-    .from('Users')
+    .from('users')
     .select('*')
-    .eq('Email', credentials?.email)
+    .eq('email', credentials?.email)
     .limit(1)
     .single()
 
     if(!existingUser){
-        const {error: insertError} = await supabase.from('Users').insert({
+        const {error: insertError} = await supabase.from('users').insert({
             email: data?.user?.email,
             username: data?.user?.user_metadata.username
         })
@@ -120,7 +120,7 @@ export async function signInWithGithub() {
     }
 }
 
-export async function forgotPassword() {
+export async function forgotPassword(formData) {
     const supabase = await createClient()
     const origin = (await headers()).get('origin')
     const {error} = await supabase.auth.resetPasswordForEmail(
@@ -133,6 +133,33 @@ export async function forgotPassword() {
         }
     }
         return{
-            status: success
+            status: 'success'
         }
     }
+
+    export async function resetPassword(formData, code) {
+        const supabase = await createClient()
+        const origin = (await headers()).get('origin')
+        const {codeError} = await supabase.auth.exchangeCodeForSession(
+            // https://tzuhstyocokeljnxtkfb.supabase.co/auth/v1/verify?token=pkce_3ce45a199906cfe3fa8536f1a25e2a6aa51bf085801ab2598d9113d1&type=recovery&redirect_to=http://localhost:3000/reset-password
+            code
+        )
+           if (codeError) {
+            return {
+                status: error?.message
+            }
+        }
+
+        const {error} = await supabase.auth.updateUser({
+            password : formData.get('password')
+        })
+
+        if (error) {
+            return {
+                status: error?.message
+            }
+        }
+            return{
+                status: 'success'
+            }
+        }
