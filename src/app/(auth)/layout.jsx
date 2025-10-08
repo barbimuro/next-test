@@ -1,6 +1,9 @@
+
+
 import React from 'react'
 import { redirect } from 'next/navigation'
 import { getUserSession } from '@/actions/auth'
+import { SessionProvider } from 'next-auth/react';
 
 async function AuthLayout({children}) {
     
@@ -10,8 +13,8 @@ async function AuthLayout({children}) {
   }
 
   return (
-    <>
-      {children}
+    <> 
+          {children}
     </>
   )
 }

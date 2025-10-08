@@ -5,6 +5,8 @@ import AuthButton from './AuthButton'
 import {signin} from '../actions/auth'
 import { useRouter } from 'next/navigation'
 import LogInGitHub from './LogInGitHub'
+import LogInGoogle from './LogInGoogle'
+import { SessionProvider } from 'next-auth/react'
 
 function LoginForm() {
 
@@ -29,6 +31,7 @@ function LoginForm() {
   }
   return (
     <div>
+      <SessionProvider>
       <form onSubmit={handleSubmit}  className="w-full flex flex-col gap-4">
         <div>
             <label className="block text-sm font-medium text-gray-200" htmlFor="email">Email</label>
@@ -41,10 +44,14 @@ function LoginForm() {
         <div className="mt-4">
             <AuthButton type='login' loading={loading}/>
             <LogInGitHub/>
+            <LogInGoogle/>
+         
               </div>
               {error && <p className="text-red-500"> {error} </p>}
       </form>
+      </SessionProvider>
     </div>
+    
   )
 }
 
