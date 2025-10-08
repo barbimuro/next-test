@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React, { Fragment } from 'react'
 import { createClient } from '../../utils/supabase/server'
 import Logout from './Logout'
+import UserDropdown from './UserDropdown'
 
 async function Navbar() {
   const supabase = await createClient()
@@ -9,8 +10,10 @@ async function Navbar() {
   return (
   <nav className="border-b bg-background w-full flex items-center">
           <div className="flex w-full items-center justify-between my-4"> 
-            <Link className="font-bold" href="/" >Home</Link>  
+           {/* <Link className="font-bold" href="/" >Home</Link> */ }
+            <li><Link href='/'>Posts</Link></li>
           </div>
+          <UserDropdown/>
           <div className="flex items-center gap-x-5">
             <Link  href="/private">Private</Link>
           </div>

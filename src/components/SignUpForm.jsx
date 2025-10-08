@@ -61,7 +61,7 @@ function SignUpForm() {
               <button type='submit'>Sign Up</button>
               <div className="mt-4">
             <AuthButton type='login' loading={loading}/>
-            <LogInGitHub/>
+          
               </div>
               {error && <p className="text-red-500">{error}</p>}
         </form>
